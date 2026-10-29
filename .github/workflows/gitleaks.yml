@@ -1,0 +1,20 @@
+name: Gitleaks Security Scan
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  scan:
+    name: Escaneo de secretos con Gitleaks
+    runs-on: ubuntu-latest
+    steps:
+      - name: Descargar codigo del repositorio
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Ejecutar analisis con Gitleaks
+        uses: gitleaks/gitleaks-action@v2
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
